@@ -32,7 +32,7 @@ In the `config/services_test.yaml` file of your project:
             - !tagged_iterator mock.http_client
 ```
 
-Step 2: Mock http 
+Step 2: Mock http client
 =============
 Example you have http client in `config/services.yaml`
 ```yaml
@@ -46,15 +46,19 @@ Example you have http client in `config/services.yaml`
 Now you need mock this client in `config/services_test.yaml`
 
 ```yaml
-    BehatHttpMockContext\Collection\ExtendedMockHttpClientCollection:
-        arguments:
-            - !tagged_iterator mock.http_client
-
     oauth_http_client:
         class: ExtendedMockHttpClient\ExtendedMockHttpClient
         arguments:
             - '%env(OAUTH_URL)%'
         tags: ['mock.http_client']
+...
+```
+
+Now we ready add build mock collection 
+```yaml
+    BehatHttpMockContext\Collection\ExtendedMockHttpClientCollection:
+        arguments:
+            - !tagged_iterator mock.http_client
 ...
 ```
 
@@ -67,6 +71,20 @@ Go to `behat.yml`
   contexts:
     - BehatHttpMockContext\Context\MockContext
 ...
+```
+
+Step 4: How to use:
+=============
+```
+    Given I mock "oauth_http_client" HTTP client next response status code should be 200 with body:
+        """
+        {
+            "success": true,
+            "response": {
+                "user_id": 234
+            }
+        }
+        """
 ```
 
 [main Build Status]: https://github.com/macpaw/BehatHttpMockContext/actions?query=workflow%3ACI+branch%3Amain

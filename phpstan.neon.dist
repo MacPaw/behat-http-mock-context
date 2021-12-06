@@ -1,0 +1,9 @@
+parameters:
+    excludes_analyse:
+    paths:
+        - src
+    level: max
+    treatPhpDocTypesAsCertain: false
+    checkMissingIterableValueType: false
+    ignoreErrors:
+

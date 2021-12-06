@@ -11,20 +11,15 @@ use ExtendedMockHttpClient\Builder\RequestMockBuilder;
 use ExtendedMockHttpClient\ExtendedMockHttpClient;
 use ExtendedMockHttpClient\Model\HttpFixture;
 use RuntimeException;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpClient\Response\MockResponse;
-use Symfony\Component\HttpKernel\KernelInterface;
 
 class MockContext implements Context
 {
-    private KernelInterface $kernel;
-    private ExtendedMockHttpClientCollection $extendedMockHttpClientCollection;
-
     public function __construct(
-        KernelInterface $kernel,
-        ExtendedMockHttpClientCollection $extendedMockHttpClientCollection
+        private ContainerInterface $container,
+        private ExtendedMockHttpClientCollection $extendedMockHttpClientCollection
     ) {
-        $this->kernel = $kernel;
-        $this->extendedMockHttpClientCollection = $extendedMockHttpClientCollection;
     }
 
     /**
@@ -110,19 +105,20 @@ class MockContext implements Context
         ));
     }
 
-    private function getHttpClient(string $httpClientName): object
+    private function getHttpClient(string $httpClientName): ExtendedMockHttpClient
     {
-        $httpClient = $this->getService($httpClientName);
+        $service = $this->container->has($httpClientName);
+
+        if ($service === false) {
+            throw new  RuntimeException('Service not found');
+        }
+
+        $httpClient =  $this->container->get($httpClientName);
 
         if (!($httpClient instanceof ExtendedMockHttpClient)) {
             throw new RuntimeException('You should replace HTTP client service using ExtendedMockHttpClient');
         }
 
         return $httpClient;
-    }
-
-    private function getService(string $id): object
-    {
-        return $this->kernel->getContainer()->get('test.service_container')->get($id);
     }
 }

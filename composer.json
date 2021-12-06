@@ -1,0 +1,59 @@
+{
+    "name": "macpaw/behat-http-mock-context",
+    "type": "library",
+    "description": "Behat Context in testing mock HTTP Response other service",
+    "keywords": [
+        "MacPaw",
+        "symfony",
+        "behat",
+        "BDD",
+        "Context",
+        "Http"
+    ],
+    "authors": [
+        {
+            "name": "Yozhef Hisem",
+            "email": "hisemjo@gmail.com",
+            "homepage": "https://macpaw.com/",
+            "role": "Software Engineer"
+        }
+    ],
+    "license": "MIT",
+    "require": {
+        "php": "^8.0",
+        "behat/behat": "^3.0",
+        "symfony/http-client": "^5.0 || ^6.0",
+        "symfony/cache": "^5.0 || ^6.0",
+        "symfony/http-kernel": "^5.0 || ^6.0",
+        "macpaw/extended_mock_http_client": "^1.0 || ^2.0"
+    },
+    "require-dev": {
+        "phpstan/phpstan": "^1.2",
+        "phpunit/phpunit": "^9.5.10",
+        "slevomat/coding-standard": "^7.0",
+        "squizlabs/php_codesniffer": "^3.6.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "BehatHttpMockContext\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "BehatHttpMockContext\\Tests\\": "tests"
+        }
+    },
+    "scripts": {
+        "composer-validate": "composer validate",
+        "phpstan": "./vendor/bin/phpstan analyse -l max",
+        "code-style": "./vendor/bin/phpcs",
+        "code-style-fix": "./vendor/bin/phpcbf",
+        "phpunit": "./vendor/bin/phpunit",
+        "dev-checks": [
+            "composer validate",
+            "@phpstan",
+            "@code-style",
+            "@phpunit"
+        ]
+    }
+}

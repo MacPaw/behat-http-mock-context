@@ -24,7 +24,6 @@
         "behat/behat": "^3.0",
         "symfony/http-client": "^5.0 || ^6.0",
         "symfony/cache": "^5.0 || ^6.0",
-        "symfony/http-kernel": "^5.0 || ^6.0",
         "macpaw/extended_mock_http_client": "^1.0 || ^2.0"
     },
     "require-dev": {

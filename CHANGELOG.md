@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.1.0](https://github.com/MacPaw/BehatHttpMockContext/compare/v1.0.0...v1.1.0) (2021-12-09)
+
+
+### Features
+
+* add code style in test ([2a21ec3](https://github.com/MacPaw/BehatHttpMockContext/commit/2a21ec346b246a865ca2b3ef1a5bdde3ce38b6a2))
+* add mock client test ([e21fcb7](https://github.com/MacPaw/BehatHttpMockContext/commit/e21fcb782fca8f3213bd08b7f0610d141ed803e0))
+* add mock context test ([7e1b17e](https://github.com/MacPaw/BehatHttpMockContext/commit/7e1b17ed9444bd4a86e68bc006eab02768348839))
+* update afterScenario ([ee808f8](https://github.com/MacPaw/BehatHttpMockContext/commit/ee808f8aa326b89140a9bc44066ddb376b2e3091))
+* update keywords ([0c8bf14](https://github.com/MacPaw/BehatHttpMockContext/commit/0c8bf1454a317b93353a8eb665a4e8e16c9dcfc4))
+* update read me ([3d83efb](https://github.com/MacPaw/BehatHttpMockContext/commit/3d83efb2f5368aca45dfe5c637719c7adef8dfc6))
+
 ## 1.0.0 (2021-12-08)
 
 

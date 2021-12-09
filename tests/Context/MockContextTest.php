@@ -24,7 +24,7 @@ class MockContextTest extends TestCase
         $mockCollection = new ExtendedMockHttpClientCollection(
             ['string']
         );
-        
+
         $mockContext = new MockContext(
             new Container(),
             $mockCollection
@@ -34,7 +34,7 @@ class MockContextTest extends TestCase
 
         $mockContext->afterScenario();
     }
-    
+
     public function testSuccess(): void
     {
         $client = new ExtendedMockHttpClient('http://test.test');
@@ -48,20 +48,19 @@ class MockContextTest extends TestCase
         $mockCollection = new ExtendedMockHttpClientCollection([
             new ExtendedMockHttpClient('macpaw.com')
         ]);
-        
+
         $mockContext = new MockContext(
             new Container(),
             $mockCollection
         );
-        
+
         self::assertCount(1, $mockCollection->getHandlers());
-        
+
         $mockContext->afterScenario();
-        
+
         self::assertCount(1, $mockCollection->getHandlers());
     }
-    
-    
+
     public function testServiceNotFound(): void
     {
         $this->expectException(RuntimeException::class);
@@ -73,26 +72,26 @@ class MockContextTest extends TestCase
                 'http_code' => 200
             ])
         ));
-        
+
         $mockCollection = new ExtendedMockHttpClientCollection([
            new ExtendedMockHttpClient('macpaw.com')
         ]);
-        
+
         $mockContext = new MockContext(
             new Container(),
             $mockCollection
         );
-        
+
         self::assertCount(1, $mockCollection->getHandlers());
-        
+
         $mockContext->iMockHttpClientNextResponse('test', 204);
     }
-    
+
     public function testFailedClientService(): void
     {
         $this->expectException(RuntimeException::class);
         $this->expectErrorMessage('You should replace HTTP client service using ExtendedMockHttpClient');
-        
+
         $client = new ExtendedMockHttpClient('http://test.test');
         $client->addFixture(new HttpFixture(
             (new RequestMockBuilder())->build(),
@@ -100,16 +99,16 @@ class MockContextTest extends TestCase
                 'http_code' => 200
             ])
         ));
-        
+
         $mockCollection = new ExtendedMockHttpClientCollection([
            new ExtendedMockHttpClient('macpaw.com')
         ]);
-        
+
         $container = new Container();
         $container->set('test', new stdClass());
 
         $mockContext = new MockContext($container, $mockCollection);
-        
+
         $mockContext->iMockHttpClientNextResponse('test', 204);
     }
 }

@@ -19,7 +19,7 @@ class ExtendedMockHttpClientCollectionTest extends TestCase
     
     public function testInitFailed(): void
     {
-        $this->expectError(TypeError::class);
+        $this->expectException(TypeError::class);
         new ExtendedMockHttpClientCollection('string');
     }
     
@@ -36,7 +36,7 @@ class ExtendedMockHttpClientCollectionTest extends TestCase
     
     public function testSetHandlersFailed(): void
     {
-        $this->expectError(TypeError::class);
+        $this->expectException(TypeError::class);
         $clientCollection = new ExtendedMockHttpClientCollection([]);
         
         $this->assertCount(0, $clientCollection->getHandlers());

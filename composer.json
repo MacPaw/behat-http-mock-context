@@ -7,8 +7,9 @@
         "symfony",
         "behat",
         "BDD",
-        "Context",
-        "Http"
+        "MockContext",
+        "HttpMockContext",
+        "MockHttpResponse"
     ],
     "authors": [
         {

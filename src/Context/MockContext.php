@@ -30,6 +30,10 @@ class MockContext implements Context
     public function afterScenario(): void
     {
         foreach ($this->extendedMockHttpClientCollection->getHandlers() as $extendedMockHttpClient) {
+            if (!($extendedMockHttpClient instanceof ExtendedMockHttpClient)) {
+                throw new RuntimeException('You should replace HTTP client service using ExtendedMockHttpClient');
+            }
+
             $extendedMockHttpClient->reset();
         }
     }

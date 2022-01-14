@@ -6,7 +6,7 @@ namespace BehatHttpMockContext\Collection;
 
 use Symfony\Component\Cache\ResettableInterface;
 
-class ExtendedMockHttpClientCollection implements ResettableInterface
+class ExtendedHttpMockClientCollection implements ResettableInterface
 {
     /*** @param iterable $handlers */
     public function __construct(private iterable $handlers)

@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace BehatHttpMockContext\Tests\Context;
 
-use BehatHttpMockContext\Collection\ExtendedMockHttpClientCollection;
-use BehatHttpMockContext\Context\MockContext;
+use BehatHttpMockContext\Collection\ExtendedHttpMockClientCollection;
+use BehatHttpMockContext\Context\HttpMockContext;
 use ExtendedMockHttpClient\Builder\RequestMockBuilder;
 use ExtendedMockHttpClient\ExtendedMockHttpClient;
 use ExtendedMockHttpClient\Model\HttpFixture;
@@ -21,11 +21,11 @@ class MockContextTest extends TestCase
     {
         $this->expectException(RuntimeException::class);
 
-        $mockCollection = new ExtendedMockHttpClientCollection(
+        $mockCollection = new ExtendedHttpMockClientCollection(
             ['string']
         );
 
-        $mockContext = new MockContext(
+        $mockContext = new HttpMockContext(
             new Container(),
             $mockCollection
         );
@@ -45,11 +45,11 @@ class MockContextTest extends TestCase
             ])
         ));
 
-        $mockCollection = new ExtendedMockHttpClientCollection([
+        $mockCollection = new ExtendedHttpMockClientCollection([
             new ExtendedMockHttpClient('macpaw.com')
         ]);
 
-        $mockContext = new MockContext(
+        $mockContext = new HttpMockContext(
             new Container(),
             $mockCollection
         );
@@ -73,11 +73,11 @@ class MockContextTest extends TestCase
             ])
         ));
 
-        $mockCollection = new ExtendedMockHttpClientCollection([
+        $mockCollection = new ExtendedHttpMockClientCollection([
            new ExtendedMockHttpClient('macpaw.com')
         ]);
 
-        $mockContext = new MockContext(
+        $mockContext = new HttpMockContext(
             new Container(),
             $mockCollection
         );
@@ -100,14 +100,14 @@ class MockContextTest extends TestCase
             ])
         ));
 
-        $mockCollection = new ExtendedMockHttpClientCollection([
+        $mockCollection = new ExtendedHttpMockClientCollection([
            new ExtendedMockHttpClient('macpaw.com')
         ]);
 
         $container = new Container();
         $container->set('test', new stdClass());
 
-        $mockContext = new MockContext($container, $mockCollection);
+        $mockContext = new HttpMockContext($container, $mockCollection);
 
         $mockContext->iMockHttpClientNextResponse('test', 204);
     }

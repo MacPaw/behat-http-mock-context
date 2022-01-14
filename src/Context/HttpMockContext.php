@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace BehatHttpMockContext\Context;
 
-use BehatHttpMockContext\Collection\ExtendedMockHttpClientCollection;
+use BehatHttpMockContext\Collection\ExtendedHttpMockClientCollection;
 use Behat\Behat\Context\Context;
 use Behat\Gherkin\Node\PyStringNode;
 use ExtendedMockHttpClient\Builder\RequestMockBuilder;
@@ -14,11 +14,11 @@ use RuntimeException;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpClient\Response\MockResponse;
 
-class MockContext implements Context
+class HttpMockContext implements Context
 {
     public function __construct(
         private ContainerInterface $container,
-        private ExtendedMockHttpClientCollection $extendedMockHttpClientCollection
+        private ExtendedHttpMockClientCollection $extendedMockHttpClientCollection
     ) {
     }
 

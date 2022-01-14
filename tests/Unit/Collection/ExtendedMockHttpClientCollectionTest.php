@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace BehatHttpMockContext\Tests\Collection;
+namespace BehatHttpMockContext\Tests\Unit\Collection;
 
 use BehatHttpMockContext\Collection\ExtendedHttpMockClientCollection;
 use PHPUnit\Framework\TestCase;

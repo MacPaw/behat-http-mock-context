@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace BehatHttpMockContext\Tests\Context;
+namespace BehatHttpMockContext\Tests\Unit\Context;
 
 use BehatHttpMockContext\Collection\ExtendedHttpMockClientCollection;
 use BehatHttpMockContext\Context\HttpMockContext;

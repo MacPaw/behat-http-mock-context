@@ -18,7 +18,7 @@ class HttpMockContext implements Context
 {
     public function __construct(
         private ContainerInterface $container,
-        private ExtendedHttpMockClientCollection $extendedMockHttpClientCollection
+        private ExtendedHttpMockClientCollection $extendedHttpMockClientCollection
     ) {
     }
 
@@ -29,7 +29,7 @@ class HttpMockContext implements Context
      */
     public function afterScenario(): void
     {
-        foreach ($this->extendedMockHttpClientCollection->getHandlers() as $extendedMockHttpClient) {
+        foreach ($this->extendedHttpMockClientCollection->getHandlers() as $extendedMockHttpClient) {
             if (!($extendedMockHttpClient instanceof ExtendedMockHttpClient)) {
                 throw new RuntimeException('You should replace HTTP client service using ExtendedMockHttpClient');
             }

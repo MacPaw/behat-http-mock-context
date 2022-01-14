@@ -6,6 +6,6 @@ namespace BehatHttpMockContext;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
-class BehatMockHttpContextBundle extends Bundle
+class BehatHttpMockContextBundle extends Bundle
 {
 }

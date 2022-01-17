@@ -16,6 +16,7 @@ jobs:
                     - '8.1'
                 coverage: ['none']
                 symfony-versions:
+                    - '4.4.*'
                     - '5.1.*'
                     - '5.2.*'
                     - '5.3.*'
@@ -60,8 +61,10 @@ jobs:
             - name: Update Symfony version
               if: matrix.symfony-versions != ''
               run: |
-                  composer require symfony/messenger:${{ matrix.symfony-versions }} --no-update --no-scripts
-                  composer require symfony/serializer:${{ matrix.symfony-versions }} --no-update --no-scripts
+                  composer require symfony/http-client:${{ matrix.symfony-versions }} --no-update --no-scripts
+                  composer require symfony/cache:${{ matrix.symfony-versions }} --no-update --no-scripts
+                  composer require symfony/dependency-injection:${{ matrix.symfony-versions }} --no-update --no-scripts
+                  composer require symfony/http-kernel:${{ matrix.symfony-versions }} --no-update --no-scripts
 
             - name: Install dependencies
               run: composer install

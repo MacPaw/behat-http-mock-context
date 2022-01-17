@@ -1,6 +1,6 @@
 {
     "name": "macpaw/behat-http-mock-context",
-    "type": "library",
+    "type": "symfony-bundle",
     "description": "Behat Context in testing mock HTTP Response other service",
     "keywords": [
         "MacPaw",
@@ -23,9 +23,11 @@
     "require": {
         "php": "^8.0",
         "behat/behat": "^3.0",
-        "symfony/http-client": "^5.0 || ^6.0",
-        "symfony/cache": "^5.0 || ^6.0",
-        "macpaw/extended_mock_http_client": "^1.0 || ^2.0"
+        "symfony/http-client": "^4.4 || ^5.0 || ^6.0",
+        "symfony/cache": "^4.4 || ^5.0 || ^6.0",
+        "macpaw/extended_mock_http_client": "^1.0 || ^2.0",
+        "symfony/dependency-injection": "^4.4 || ^5.4 || ^6.0",
+        "symfony/http-kernel": "^4.4 || ^5.4 || ^6.0"
     },
     "require-dev": {
         "phpstan/phpstan": "^1.2",

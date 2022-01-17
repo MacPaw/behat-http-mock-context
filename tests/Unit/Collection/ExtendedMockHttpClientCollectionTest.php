@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace BehatHttpMockContext\Tests\Collection;
+namespace BehatHttpMockContext\Tests\Unit\Collection;
 
-use BehatHttpMockContext\Collection\ExtendedMockHttpClientCollection;
+use BehatHttpMockContext\Collection\ExtendedHttpMockClientCollection;
 use PHPUnit\Framework\TestCase;
 use TypeError;
 
@@ -12,7 +12,7 @@ class ExtendedMockHttpClientCollectionTest extends TestCase
 {
     public function testSuccess(): void
     {
-        $clientCollection = new ExtendedMockHttpClientCollection([]);
+        $clientCollection = new ExtendedHttpMockClientCollection([]);
 
         $this->assertCount(0, $clientCollection->getHandlers());
     }
@@ -20,12 +20,12 @@ class ExtendedMockHttpClientCollectionTest extends TestCase
     public function testInitFailed(): void
     {
         $this->expectException(TypeError::class);
-        new ExtendedMockHttpClientCollection('string');
+        new ExtendedHttpMockClientCollection('string');
     }
 
     public function testSetHandlersSuccess(): void
     {
-        $clientCollection = new ExtendedMockHttpClientCollection([]);
+        $clientCollection = new ExtendedHttpMockClientCollection([]);
 
         $this->assertCount(0, $clientCollection->getHandlers());
 
@@ -37,7 +37,7 @@ class ExtendedMockHttpClientCollectionTest extends TestCase
     public function testSetHandlersFailed(): void
     {
         $this->expectException(TypeError::class);
-        $clientCollection = new ExtendedMockHttpClientCollection([]);
+        $clientCollection = new ExtendedHttpMockClientCollection([]);
 
         $this->assertCount(0, $clientCollection->getHandlers());
         $clientCollection->setHandlers('string');
@@ -45,7 +45,7 @@ class ExtendedMockHttpClientCollectionTest extends TestCase
 
     public function testResetSuccess(): void
     {
-        $clientCollection = new ExtendedMockHttpClientCollection([[]]);
+        $clientCollection = new ExtendedHttpMockClientCollection([[]]);
 
         $this->assertCount(1, $clientCollection->getHandlers());
 

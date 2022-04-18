@@ -7,12 +7,9 @@ namespace BehatHttpMockContext\Context;
 use BehatHttpMockContext\Collection\ExtendedHttpMockClientCollection;
 use Behat\Behat\Context\Context;
 use Behat\Gherkin\Node\PyStringNode;
-use ExtendedMockHttpClient\Builder\RequestMockBuilder;
 use ExtendedMockHttpClient\ExtendedMockHttpClient;
-use ExtendedMockHttpClient\Model\HttpFixture;
 use RuntimeException;
 use Symfony\Component\DependencyInjection\ContainerInterface;
-use Symfony\Component\HttpClient\Response\MockResponse;
 
 class HttpMockContext implements Context
 {
@@ -29,7 +26,7 @@ class HttpMockContext implements Context
      */
     public function afterScenario(): void
     {
-        foreach ($this->extendedHttpMockClientCollection->getHandlers() as $extendedMockHttpClient) {
+        foreach ($this->extendedHttpMockClientCollection->getHttpClients() as $extendedMockHttpClient) {
             if (!($extendedMockHttpClient instanceof ExtendedMockHttpClient)) {
                 throw new RuntimeException('You should replace HTTP client service using ExtendedMockHttpClient');
             }
@@ -82,14 +79,15 @@ class HttpMockContext implements Context
     ): void {
         $httpClient = $this->getHttpClient($httpClientName);
 
-        $httpClient->addFixture(new HttpFixture(
-            (new RequestMockBuilder())
-                ->urlEquals(sprintf('%s/%s', $httpClient->getBaseUri(), $url))
-                ->build(),
-            new MockResponse(trim($params->getRaw()), [
-                'http_code' => $responseStatusCode
-            ])
-        ));
+        $httpFixture = $httpClient->createFixture(
+            null,
+            sprintf('%s/%s', $httpClient->getBaseUri(), $url),
+            null,
+            null,
+            $responseStatusCode,
+            trim($params->getRaw())
+        );
+        $httpClient->addFixture($httpFixture);
     }
 
     private function mockHttpClientNextResponse(
@@ -100,13 +98,15 @@ class HttpMockContext implements Context
         $httpClient = $this->getHttpClient($httpClientName);
         $body = $params instanceof PyStringNode ? trim($params->getRaw()) : '';
 
-        $httpClient->addFixture(new HttpFixture(
-            (new RequestMockBuilder())->build(),
-            new MockResponse(
-                $body,
-                ['http_code' => $responseStatusCode]
-            )
-        ));
+        $httpFixture = $httpClient->createFixture(
+            null,
+            null,
+            null,
+            null,
+            $responseStatusCode,
+            $body
+        );
+        $httpClient->addFixture($httpFixture);
     }
 
     private function getHttpClient(string $httpClientName): ExtendedMockHttpClient

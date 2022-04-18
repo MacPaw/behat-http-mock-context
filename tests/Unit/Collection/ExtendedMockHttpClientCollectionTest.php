@@ -5,33 +5,43 @@ declare(strict_types=1);
 namespace BehatHttpMockContext\Tests\Unit\Collection;
 
 use BehatHttpMockContext\Collection\ExtendedHttpMockClientCollection;
-use PHPUnit\Framework\TestCase;
+use BehatHttpMockContext\Tests\Unit\AbstractUnitTest;
 use TypeError;
 
-class ExtendedMockHttpClientCollectionTest extends TestCase
+class ExtendedMockHttpClientCollectionTest extends AbstractUnitTest
 {
     public function testSuccess(): void
     {
         $clientCollection = new ExtendedHttpMockClientCollection([]);
 
-        $this->assertCount(0, $clientCollection->getHandlers());
+        $this->assertCount(0, $clientCollection->getHttpClients());
     }
 
-    public function testInitFailed(): void
+    public function testInitFailedParameterType(): void
     {
         $this->expectException(TypeError::class);
+
         new ExtendedHttpMockClientCollection('string');
+    }
+
+    public function testInitFailedHttpClientType(): void
+    {
+        $this->expectException(TypeError::class);
+
+        new ExtendedHttpMockClientCollection(['string']);
     }
 
     public function testSetHandlersSuccess(): void
     {
         $clientCollection = new ExtendedHttpMockClientCollection([]);
 
-        $this->assertCount(0, $clientCollection->getHandlers());
+        $this->assertCount(0, $clientCollection->getHttpClients());
 
-        $clientCollection->setHandlers([[]]);
+        $clientCollection->setHttpClients([
+            $this->createHttpClient('test2@test.test')
+        ]);
 
-        $this->assertCount(1, $clientCollection->getHandlers());
+        $this->assertCount(1, $clientCollection->getHttpClients());
     }
 
     public function testSetHandlersFailed(): void
@@ -39,18 +49,20 @@ class ExtendedMockHttpClientCollectionTest extends TestCase
         $this->expectException(TypeError::class);
         $clientCollection = new ExtendedHttpMockClientCollection([]);
 
-        $this->assertCount(0, $clientCollection->getHandlers());
-        $clientCollection->setHandlers('string');
+        $this->assertCount(0, $clientCollection->getHttpClients());
+        $clientCollection->setHttpClients('string');
     }
 
     public function testResetSuccess(): void
     {
-        $clientCollection = new ExtendedHttpMockClientCollection([[]]);
+        $clientCollection = new ExtendedHttpMockClientCollection([
+            $this->createHttpClient('test1@test.test')
+        ]);
 
-        $this->assertCount(1, $clientCollection->getHandlers());
+        $this->assertCount(1, $clientCollection->getHttpClients());
 
         $clientCollection->reset();
 
-        $this->assertCount(0, $clientCollection->getHandlers());
+        $this->assertCount(0, $clientCollection->getHttpClients());
     }
 }

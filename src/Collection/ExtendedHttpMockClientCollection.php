@@ -5,26 +5,48 @@ declare(strict_types=1);
 namespace BehatHttpMockContext\Collection;
 
 use Symfony\Component\Cache\ResettableInterface;
+use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 class ExtendedHttpMockClientCollection implements ResettableInterface
 {
-    /*** @param iterable $handlers */
-    public function __construct(private iterable $handlers)
+    /**
+     * @var HttpClientInterface[]
+     */
+    private array $httpClients = [];
+
+    /**
+     * @param HttpClientInterface[] $httpClients
+     */
+    public function __construct(iterable $httpClients)
     {
+        $this->setHttpClients($httpClients);
     }
 
-    public function getHandlers(): iterable
+    /**
+     * @param HttpClientInterface[] $httpClients
+     */
+    public function setHttpClients(iterable $httpClients): void
     {
-        return $this->handlers;
+        foreach ($httpClients as $httpClient) {
+            $this->addHttpClient($httpClient);
+        }
     }
 
-    public function setHandlers(iterable $handlers): void
+    public function addHttpClient(HttpClientInterface $httpClient): void
     {
-        $this->handlers = $handlers;
+        $this->httpClients[] = $httpClient;
+    }
+
+    /**
+     * @return HttpClientInterface[]
+     */
+    public function getHttpClients(): iterable
+    {
+        return $this->httpClients;
     }
 
     public function reset(): void
     {
-        $this->handlers = [];
+        $this->httpClients = [];
     }
 }

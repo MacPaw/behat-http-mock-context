@@ -6,83 +6,82 @@ namespace BehatHttpMockContext\Tests\Unit\Context;
 
 use BehatHttpMockContext\Collection\ExtendedHttpMockClientCollection;
 use BehatHttpMockContext\Context\HttpMockContext;
-use ExtendedMockHttpClient\Builder\RequestMockBuilder;
-use ExtendedMockHttpClient\ExtendedMockHttpClient;
-use ExtendedMockHttpClient\Model\HttpFixture;
-use PHPUnit\Framework\TestCase;
+use BehatHttpMockContext\Tests\Unit\AbstractUnitTest;
 use RuntimeException;
 use stdClass;
 use Symfony\Component\DependencyInjection\Container;
-use Symfony\Component\HttpClient\Response\MockResponse;
+use Symfony\Component\HttpClient\CurlHttpClient;
 
-class MockContextTest extends TestCase
+class MockContextTest extends AbstractUnitTest
 {
     public function testFailingObjectInCollection(): void
     {
         $this->expectException(RuntimeException::class);
 
-        $mockCollection = new ExtendedHttpMockClientCollection(
-            ['string']
-        );
+        $notMockedHttpClient = new CurlHttpClient();
+        $mockCollection = new ExtendedHttpMockClientCollection([ $notMockedHttpClient ]);
 
         $mockContext = new HttpMockContext(
             new Container(),
             $mockCollection
         );
 
-        self::assertCount(1, $mockCollection->getHandlers());
+        self::assertCount(1, $mockCollection->getHttpClients());
 
         $mockContext->afterScenario();
     }
 
     public function testSuccess(): void
     {
-        $client = new ExtendedMockHttpClient('http://test.test');
-        $client->addFixture(new HttpFixture(
-            (new RequestMockBuilder())->build(),
-            new MockResponse('response body', [
-                'http_code' => 200
-            ])
-        ));
+        $client = $this->createHttpClient('http://test.test');
+        $httpFixture = $client->createFixture(
+            null,
+            null,
+            null,
+            null,
+            200,
+            'response body'
+        );
+        $client->addFixture($httpFixture);
 
-        $mockCollection = new ExtendedHttpMockClientCollection([
-            new ExtendedMockHttpClient('macpaw.com')
-        ]);
+        $mockCollection = new ExtendedHttpMockClientCollection([$client]);
 
         $mockContext = new HttpMockContext(
             new Container(),
             $mockCollection
         );
 
-        self::assertCount(1, $mockCollection->getHandlers());
+        self::assertCount(1, $mockCollection->getHttpClients());
 
         $mockContext->afterScenario();
 
-        self::assertCount(1, $mockCollection->getHandlers());
+        self::assertCount(1, $mockCollection->getHttpClients());
     }
 
     public function testServiceNotFound(): void
     {
         $this->expectException(RuntimeException::class);
         $this->expectErrorMessage('Service not found');
-        $client = new ExtendedMockHttpClient('http://test.test');
-        $client->addFixture(new HttpFixture(
-            (new RequestMockBuilder())->build(),
-            new MockResponse('response body', [
-                'http_code' => 200
-            ])
-        ));
 
-        $mockCollection = new ExtendedHttpMockClientCollection([
-           new ExtendedMockHttpClient('macpaw.com')
-        ]);
+        $client = $this->createHttpClient('http://test.test');
+        $httpFixture = $client->createFixture(
+            null,
+            null,
+            null,
+            null,
+            200,
+            'response body'
+        );
+        $client->addFixture($httpFixture);
+
+        $mockCollection = new ExtendedHttpMockClientCollection([ $client ]);
 
         $mockContext = new HttpMockContext(
             new Container(),
             $mockCollection
         );
 
-        self::assertCount(1, $mockCollection->getHandlers());
+        self::assertCount(1, $mockCollection->getHttpClients());
 
         $mockContext->iMockHttpClientNextResponse('test', 204);
     }
@@ -92,17 +91,18 @@ class MockContextTest extends TestCase
         $this->expectException(RuntimeException::class);
         $this->expectErrorMessage('You should replace HTTP client service using ExtendedMockHttpClient');
 
-        $client = new ExtendedMockHttpClient('http://test.test');
-        $client->addFixture(new HttpFixture(
-            (new RequestMockBuilder())->build(),
-            new MockResponse('response body', [
-                'http_code' => 200
-            ])
-        ));
+        $client = $this->createHttpClient('http://test.test');
+        $httpFixture = $client->createFixture(
+            null,
+            null,
+            null,
+            null,
+            200,
+            'response body'
+        );
+        $client->addFixture($httpFixture);
 
-        $mockCollection = new ExtendedHttpMockClientCollection([
-           new ExtendedMockHttpClient('macpaw.com')
-        ]);
+        $mockCollection = new ExtendedHttpMockClientCollection([ $client ]);
 
         $container = new Container();
         $container->set('test', new stdClass());

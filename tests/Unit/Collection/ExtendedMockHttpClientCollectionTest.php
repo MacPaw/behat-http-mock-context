@@ -31,7 +31,7 @@ class ExtendedMockHttpClientCollectionTest extends AbstractUnitTest
         new ExtendedHttpMockClientCollection(['string']);
     }
 
-    public function testSetHandlersSuccess(): void
+    public function testSetHttpClientsSuccess(): void
     {
         $clientCollection = new ExtendedHttpMockClientCollection([]);
 
@@ -44,7 +44,7 @@ class ExtendedMockHttpClientCollectionTest extends AbstractUnitTest
         $this->assertCount(1, $clientCollection->getHttpClients());
     }
 
-    public function testSetHandlersFailed(): void
+    public function testSetHttpClientsFailed(): void
     {
         $this->expectException(TypeError::class);
         $clientCollection = new ExtendedHttpMockClientCollection([]);

@@ -110,7 +110,7 @@ Step 4: How to use:
         """
 ```
 
-[main Build Status]: https://github.com/macpaw/BehatHttpMockContext/actions?query=workflow%3ACI+branch%3Amain
-[main Build Status Image]: https://github.com/macpaw/BehatHttpMockContext/workflows/CI/badge.svg?branch=main
-[main Code Coverage]: https://codecov.io/gh/macpaw/BehatHttpMockContext/branch/main
-[main Code Coverage Image]: https://img.shields.io/codecov/c/github/macpaw/BehatHttpMockContext/main?logo=codecov
+[main Build Status]: https://github.com/macpaw/behat-http-mock-context/actions?query=workflow%3ACI+branch%3Amain
+[main Build Status Image]: https://github.com/macpaw/behat-http-mock-context/workflows/CI/badge.svg?branch=main
+[main Code Coverage]: https://codecov.io/gh/macpaw/behat-http-mock-context/branch/main
+[main Code Coverage Image]: https://img.shields.io/codecov/c/github/macpaw/behat-http-mock-context/main?logo=codecov

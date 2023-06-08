@@ -24,12 +24,6 @@ jobs:
                     - '6.0.*'
                     - '6.2.*'
                 include:
-                    - php: '8.0'
-                      coverage: 'xdebug'
-                      symfony-versions: '^4.4'
-                    - php: '8.0'
-                      coverage: 'xdebug'
-                      symfony-versions: '^5.4'
                     - description: 'Log Code Coverage'
                       php: '8.2'
                       coverage: 'xdebug'

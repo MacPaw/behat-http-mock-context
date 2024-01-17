@@ -23,10 +23,10 @@
     "require": {
         "php": "^8.0",
         "behat/behat": "^3.0",
-        "symfony/http-client": "^4.4 || ^5.0 || ^6.0",
-        "symfony/cache": "^4.4 || ^5.0 || ^6.0",
-        "symfony/dependency-injection": "^4.4 || ^5.4 || ^6.0",
-        "symfony/http-kernel": "^4.4 || ^5.4 || ^6.0",
+        "symfony/http-client": "^4.4 || ^5.0 || ^6.0 || ^7.0",
+        "symfony/cache": "^4.4 || ^5.0 || ^6.0 || ^7.0",
+        "symfony/dependency-injection": "^4.4 || ^5.4 || ^6.0 || ^7.0",
+        "symfony/http-kernel": "^4.4 || ^5.4 || ^6.0 || ^7.0",
         "macpaw/extended_mock_http_client": "^3.0 || ^4.0"
     },
     "require-dev": {

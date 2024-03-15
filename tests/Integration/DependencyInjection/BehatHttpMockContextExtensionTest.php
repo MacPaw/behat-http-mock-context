@@ -22,7 +22,7 @@ class BehatHttpMockContextExtensionTest extends TestCase
         $collectionDefinition = $container->getDefinition(ExtendedHttpMockClientCollection::class);
         self::assertSame(ExtendedHttpMockClientCollection::class, $collectionDefinition->getClass());
 
-        $handlersArgument = $collectionDefinition->getArgument('$handlers');
+        $handlersArgument = $collectionDefinition->getArgument('$httpClients');
         self::assertInstanceOf(TaggedIteratorArgument::class, $handlersArgument);
         self::assertSame(
             'mock.http_client',

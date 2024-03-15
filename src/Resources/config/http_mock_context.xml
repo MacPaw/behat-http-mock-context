@@ -9,7 +9,7 @@
             <argument key="$extendedHttpMockClientCollection" type="service" id="BehatHttpMockContext\Collection\ExtendedHttpMockClientCollection"/>
         </service>
         <service public="true" autowire="true" id="BehatHttpMockContext\Collection\ExtendedHttpMockClientCollection" class="BehatHttpMockContext\Collection\ExtendedHttpMockClientCollection">
-            <argument key="$handlers" type="tagged_iterator" tag="mock.http_client"/>
+            <argument key="$httpClients" type="tagged_iterator" tag="mock.http_client"/>
         </service>
     </services>
 </container>

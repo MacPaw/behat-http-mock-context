@@ -92,7 +92,7 @@ Go to `behat.yml`
 ```yaml
 ...
   contexts:
-    - BehatHttpMockContext\Context\MockContext
+    - BehatHttpMockContext\Context\HttpMockContext
 ...
 ```
 

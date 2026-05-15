@@ -1,3 +1,5 @@
+![Behat HTTP Mock Context](.github/header.png)
+
 Behat HTTP Mock Context
 =================================
 
